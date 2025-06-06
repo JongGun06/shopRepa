@@ -83,16 +83,20 @@ const Category = () => {
         link: "chasy-ukrasheniya",
         img: "https://img5.lalafo.com/i/category-icon/bb/c7/2c/f8977a90897c902e2698800278.png"
     }
+    
+    
 ]
 
     return (
-        <div className="container">
-            {category.map((el:CategoryType)=> (
-                <div className="cardForCategory">
-                    <h3>{el.name}</h3>
-                    <img src={el.img} />
-                </div>
-            ))}
+        <div className="container category-container">
+            <div className="category-grid">
+                {category.map((el: CategoryType) => (
+                    <div className="cardForCategory" key={el.link}>
+                        <img src={el.img} alt={el.name} />
+                        <h3>{el.name}</h3>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }

@@ -1,0 +1,176 @@
+/* MainPage.tsx */
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background-color: #ffffff;
+  border-bottom: 1px solid #dcdcdc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.search {
+  padding: 0.7rem 1rem;
+  border: 1px solid #c0c0c0;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  width: 100%;
+  max-width: 30rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.2);
+}
+
+.searchButton {
+  padding: 0.5rem 0.9rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.searchButton:hover {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+.filter {
+  padding: 0.5rem 0.9rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #6c757d;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.filter:hover {
+  background-color: #5a6268;
+  transform: translateY(-1px);
+}
+
+
+/* category.tsx */
+.category-container {
+  overflow-x: auto;
+  padding: 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: #134412 #f1f1f1;
+}
+
+.category-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.category-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.category-container::-webkit-scrollbar-thumb {
+  background: #007bff;
+  border-radius: 4px;
+}
+
+.category-container::-webkit-scrollbar-thumb:hover {
+  background: #0056b3;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr); /* 8 колонок */
+  grid-template-rows: repeat(2, 1fr); /* Только 2 ряда */
+  gap: 1rem;
+  width: max-content;
+}
+
+/* Первый ряд: элементы 1-8 (8 карточек) */
+.cardForCategory:nth-child(-n+8) {
+  grid-row: 1;
+}
+
+/* Второй ряд: элементы 9-15 (7 карточек) */
+.cardForCategory:nth-child(n+9) {
+  grid-row: 2;
+}
+
+.cardForCategory {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  max-width: 150px;
+  padding: 0.5rem;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.cardForCategory:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.cardForCategory img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+.cardForCategory h3 {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333;
+  text-align: center;
+  margin: 0;
+  white-space: normal;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .category-grid {
+    grid-template-columns: repeat(8, 1fr); /* 8 колонок на мобильных тоже */
+    grid-template-rows: repeat(2, 1fr); /* Всё ещё 2 ряда */
+  }
+  
+  /* Первый ряд на мобильных: элементы 1-8 (8 карточек) */
+  .cardForCategory:nth-child(-n+8) {
+    grid-row: 1;
+  }
+  
+  /* Второй ряд на мобильных: элементы 9-15 (7 карточек) */
+  .cardForCategory:nth-child(n+9) {
+    grid-row: 2;
+  }
+
+  .category-container {
+    padding: 0.5rem;
+  }
+
+  .cardForCategory {
+    min-width: 100px;
+    max-width: 130px;
+  }
+
+  .cardForCategory img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .cardForCategory h3 {
+    font-size: 0.85rem;
+  }
+}
