@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { userController, productController, categoryController, orderController } = require('../controllers/product.controller.js');
+const { userController, productController, categoryController, orderController } = require('../controllers/product.controller');
 const { uploadMiddleware } = require('../services/cloudinary');
 
 // Пользователи
@@ -14,6 +14,7 @@ router.delete('/users/favorites/:productId', userController.removeFavorite); // 
 router.post('/products', uploadMiddleware, productController.createProduct); // Создание товара
 router.get('/products', productController.getProducts); // Получение списка товаров
 router.get('/products/:id', productController.getProduct); // Получение одного товара
+router.delete('/products/:id', productController.deleteProduct); // НОВЫЙ МАРШРУТ: Удаление товара
 
 // Категории
 router.get('/categories', categoryController.getCategories); // Получение списка категорий
