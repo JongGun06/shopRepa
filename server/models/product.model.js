@@ -37,6 +37,7 @@ let ProductSchema = mongoose.Schema({
   author: { type: String, required: true }, // ID пользователя
   quantity: { type: Number, required: true, min: 0 },
   additionalInfo: { type: String },
+  sizes: [{ type: String }], // Размеры одежды: ['S', 'M', 'L', 'XL', 'XXL']
   createDate: { type: String, default: new Date().toISOString() }
 });
 

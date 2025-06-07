@@ -82,7 +82,7 @@ exports.userController = {
 exports.productController = {
   createProduct: async (req, res) => {
     try {
-      const { userId, title, price, containerCoordinates, category, quantity, additionalInfo } = req.body;
+      const { userId, title, price, containerCoordinates, category, quantity, additionalInfo, sizes } = req.body;
       
       if (!req.file) {
         return res.status(400).json({ error: 'No image uploaded' });
@@ -94,6 +94,16 @@ exports.productController = {
       let coords = containerCoordinates;
       if (typeof containerCoordinates === 'string') {
         coords = JSON.parse(containerCoordinates);
+      }
+
+      // Парсим размеры если они пришли как строка
+      let productSizes = null;
+      if (sizes) {
+        if (typeof sizes === 'string') {
+          productSizes = JSON.parse(sizes);
+        } else {
+          productSizes = sizes;
+        }
       }
       
       const product = new Product({
@@ -108,6 +118,7 @@ exports.productController = {
         author: userId,
         quantity: parseInt(quantity),
         additionalInfo,
+        sizes: productSizes || [],
         createDate: new Date().toISOString()
       });
       

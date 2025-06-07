@@ -1,6 +1,7 @@
 import { useState } from "react";
 import './MainPage.css'
 import Category from "./Category";
+import CardProducts from "./CardProducts";
 
 
 
@@ -17,6 +18,9 @@ const Main = () => {
                 <section>
                     <Category/>
                 </section> 
+                <section>
+                    <CardProducts/>
+                </section>
             </main>
         </div>
     );
