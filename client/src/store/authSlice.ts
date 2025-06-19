@@ -1,28 +1,28 @@
-// client/src/store/authSlice.ts (ИСПРАВЛЕННАЯ ВЕРСИЯ)
-
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit'; // <-- ИСПРАВЛЕНО ЗДЕСЬ
-import { type UserProfile } from './apiSlice'; // <-- И ИСПРАВЛЕНО ЗДЕСЬ
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { type UserProfile } from '../types';
 
 interface AuthState {
   profile: UserProfile | null;
 }
 
 const initialState: AuthState = {
-  profile: null,
+  profile: JSON.parse(localStorage.getItem('userProfile') || 'null'),
 };
 
-const authSlice = createSlice({
+export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setCredentials: (state, action: PayloadAction<UserProfile>) => {
+    setUser: (state, action: PayloadAction<UserProfile>) => {
       state.profile = action.payload;
+      localStorage.setItem('userProfile', JSON.stringify(action.payload));
     },
     logout: (state) => {
       state.profile = null;
+      localStorage.removeItem('userProfile');
     },
   },
 });
 
-export const { setCredentials, logout } = authSlice.actions;
+export const { setUser, logout } = authSlice.actions;
 export default authSlice.reducer;

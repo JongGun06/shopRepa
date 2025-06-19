@@ -1,0 +1,62 @@
+.auth-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.auth-button, .reset-password, .toggle-auth {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.auth-button {
+  background-color: #4285f4;
+  color: white;
+}
+
+.auth-button:hover {
+  background-color: #357ae8;
+}
+
+.reset-password {
+  background: none;
+  color: #0066cc;
+}
+
+.toggle-auth {
+  background: none;
+  color: #0066cc;
+}
+
+.error {
+  color: red;
+  margin: 10px 0;
+}
+
+.message {
+  color: green;
+  margin: 10px 0;
+}

@@ -1,65 +1,93 @@
-// client/src/components/Pages/MainPage/Main.tsx (ФИНАЛЬНАЯ ВЕРСИЯ)
 import { useState } from 'react';
-import { useGetProductsQuery, useGetCategoriesQuery, type GetProductsParams } from '../../../store/apiSlice';
-import CardProducts from './CardProducts';
-import ProductFilters from './ProductFilters'; 
-import CategoryList from '../../Categories/CategoryList';
+import { Link } from 'react-router-dom';
+import { useGetProductsQuery, useGetCategoriesQuery } from '../../../store/apiSlice';
 import './MainPage.css';
 
 const Main = () => {
-  const [filterParams, setFilterParams] = useState<Partial<GetProductsParams>>({});
+  const [search, setSearch] = useState('');
+  const [category, setCategory] = useState('');
+  const [priceRange, setPriceRange] = useState({ min: '', max: '' });
+  const [sortBy, setSortBy] = useState('default');
 
-  const { data: products = [], isLoading: isLoadingProducts, isSuccess, isError, error } = useGetProductsQuery(filterParams);
-  const { data: categories = [], isLoading: isLoadingCategories } = useGetCategoriesQuery();
+  const { data: products = [], isLoading: isProductsLoading } = useGetProductsQuery({
+    search,
+    category,
+    price_gte: priceRange.min ? Number(priceRange.min) : undefined,
+    price_lte: priceRange.max ? Number(priceRange.max) : undefined,
+    sortBy,
+  });
 
-  const handleApplyFilters = (params: GetProductsParams) => {
-    const cleanParams = Object.fromEntries(
-      Object.entries(params).filter(([, value]) => value !== '' && value != null && value !== undefined)
-    );
-    setFilterParams(cleanParams);
+  const { data: categories = [], isLoading: isCategoriesLoading } = useGetCategoriesQuery();
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
   };
 
-  const handleCategoryClick = (categoryName: string) => {
-    const newFilters = { category: categoryName };
-    setFilterParams(newFilters);
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCategory(e.target.value);
   };
 
-  let content;
-  if (isLoadingProducts) {
-    content = <p>Загрузка...</p>;
-  } else if (isError) {
-    content = <p>Ошибка при загрузке: {JSON.stringify(error)}</p>;
-  } else if (isSuccess && products.length > 0) {
-    content = (
-      <div className="products-grid">
-        {products.map(product => (
-          <CardProducts key={product._id} product={product} />
-        ))}
-      </div>
-    );
-  } else {
-    content = <p>По вашему запросу ничего не найдено.</p>;
-  }
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPriceRange({ ...priceRange, [e.target.name]: e.target.value });
+  };
+
+  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSortBy(e.target.value);
+  };
 
   return (
     <div className="main-container">
-      {/* Теперь передача пропсов в ProductFilters корректна */}
-      <ProductFilters 
-        categories={categories}
-        onApplyFilters={handleApplyFilters}
-        currentFilters={filterParams}
-      />
-      
-      {isLoadingCategories ? <p>Загрузка категорий...</p> : (
-        <CategoryList onCategoryClick={handleCategoryClick} />
-      )}
-
-      <hr className="divider" />
-      
-      <h2>{filterParams.category || 'Все объявления'}</h2>
-      <div className="content-wrapper">
-        {content}
+      <h1>Каталог</h1>
+      <div className="filters">
+        <input
+          type="text"
+          placeholder="Поиск..."
+          value={search}
+          onChange={handleSearchChange}
+        />
+        <select value={category} onChange={handleCategoryChange}>
+          <option value="">Все категории</option>
+          {categories.map(cat => (
+            <option key={cat._id} value={cat.name}>{cat.name}</option>
+          ))}
+        </select>
+        <input
+          type="number"
+          name="min"
+          placeholder="Цена от"
+          value={priceRange.min}
+          onChange={handlePriceChange}
+        />
+        <input
+          type="number"
+          name="max"
+          placeholder="Цена до"
+          value={priceRange.max}
+          onChange={handlePriceChange}
+        />
+        <select value={sortBy} onChange={handleSortChange}>
+          <option value="default">По умолчанию</option>
+          <option value="priceAsc">Цена: по возрастанию</option>
+          <option value="priceDesc">Цена: по убыванию</option>
+          <option value="dateNew">Новинки</option>
+        </select>
       </div>
+      {isProductsLoading || isCategoriesLoading ? (
+        <p>Загрузка...</p>
+      ) : (
+        <div className="products-grid">
+          {products.filter(product => product.quantity > 0).map(product => (
+            <Link to={`/product/${product._id}`} key={product._id} className="card-product">
+              <img src={product.image} alt={product.title} />
+              <div className="card-product-body">
+                <h5>{product.title}</h5>
+                <p>{product.price} сом</p>
+                <p>В наличии: {product.quantity}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

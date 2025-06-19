@@ -1,4 +1,3 @@
-// client/src/components/Pages/ProductDetailPage/ProductDetailPage.tsx (НОВАЯ ВЕРСИЯ)
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useGetProductByIdQuery } from '../../../store/apiSlice';
@@ -16,7 +15,15 @@ const ProductDetailPage = () => {
   const handleAddToCart = () => {
     if (product) {
       dispatch(addToCart(product));
-      navigate('/cart'); // После добавления перекидываем в корзину
+      navigate('/cart');
+    }
+  };
+
+  const handleShowCoordinates = () => {
+    if (product?.containerCoordinates) {
+      console.log(`Координаты контейнера: x=${product.containerCoordinates.x}, y=${product.containerCoordinates.y}`);
+    } else {
+      console.log('Координаты контейнера не указаны');
     }
   };
 
@@ -43,6 +50,9 @@ const ProductDetailPage = () => {
         )}
         <p className="product-description">{product.description}</p>
         <button className="add-to-cart-btn" onClick={handleAddToCart}>Добавить в корзину</button>
+        <button className="add-to-cart-btn" onClick={handleShowCoordinates} style={{ backgroundColor: '#6c757d', marginTop: '1rem' }}>
+          Показать координаты
+        </button>
       </div>
     </div>
   );

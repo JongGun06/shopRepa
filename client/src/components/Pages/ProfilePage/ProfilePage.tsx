@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { type RootState, type AppDispatch } from '../../../store/store';
 import { useUpdateProfileMutation, useGetUserProductsQuery } from '../../../store/apiSlice';
-import { setCredentials } from '../../../store/authSlice';
+import { setUser } from '../../../store/authSlice';
 import CardProducts from '../MainPage/CardProducts';
 import '../MainPage/MainPage.css';
 import './ProfilePage.css';
@@ -72,10 +72,17 @@ const ProfilePage = () => {
         </div>
       </div>
       <hr className="divider" />
-      <h2>Мои объявления</h2>
-      {userProducts.length > 0 ? (
-         <div className="products-grid">{userProducts.map(p => <CardProducts key={p._id} product={p} />)}</div>
-      ) : (<p>Вы еще не добавили ни одного товара.</p>)}
+      {profile.role === 'seller' && (
+    <>
+        <hr className="divider" />
+        <h2>Мои объявления</h2>
+        {userProducts.length > 0 ? (
+            <div className="products-grid">
+            {userProducts.map(product => <CardProducts key={product._id} product={product} />)}
+            </div>
+        ) : (<p>Вы еще не добавили ни одного товара.</p>)}
+    </>
+)}
     </div>
   );
 };

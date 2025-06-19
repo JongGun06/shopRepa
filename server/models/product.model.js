@@ -1,4 +1,3 @@
-// server/models/product.model.js (ПОЛНАЯ ВЕРСИЯ)
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
@@ -10,7 +9,7 @@ const UserSchema = new mongoose.Schema({
   status: { type: String, enum: ['pending', 'approved', 'blocked'], default: 'pending' },
   favorites: [{ product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' } }],
   items: [{ product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' } }],
-  orders: [{ order: { type: mongoose.Schema.Types.ObjectId, ref: 'Order' } }]
+  orders: [{ order: { type: mongoose.Schema.Types.ObjectId, ref: 'Order' } }],
 }, { timestamps: true });
 
 const ProductSchema = new mongoose.Schema({
@@ -31,15 +30,19 @@ const ProductSchema = new mongoose.Schema({
 
 const CategorySchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true },
-  icon: { type: String }
+  icon: { type: String },
 });
 
 const OrderSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
+  products: [{
+    product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
+    quantity: { type: Number, required: true },
+  }],
+  sellers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   status: { type: String, enum: ['pending', 'delivered'], default: 'pending' },
-  createDate: { type: String, default: new Date().toISOString() }
-});
+  createDate: { type: String, default: new Date().toISOString() },
+}, { timestamps: true });
 
 const User = mongoose.model('User', UserSchema);
 const Product = mongoose.model('Product', ProductSchema);

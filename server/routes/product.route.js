@@ -1,13 +1,12 @@
-// server/routes/product.route.js (ПОЛНАЯ ВЕРСИЯ)
 const express = require('express');
 const router = express.Router();
-const { userController, productController, categoryController } = require('../controllers/product.controller');
+const { userController, productController, categoryController, orderController } = require('../controllers/product.controller');
 const { uploadMiddleware } = require('../services/cloudinary');
 
 // Пользователи, Профиль, Админка
 router.post('/users/registerOrLogin', userController.registerOrLogin);
-router.put('/users/profile', uploadMiddleware, userController.updateProfile); 
-router.get('/users/products/:authorId', userController.getUserProducts); 
+router.put('/users/profile', uploadMiddleware, userController.updateProfile);
+router.get('/users/products/:authorId', userController.getUserProducts);
 router.get('/users', userController.getAllUsers);
 router.put('/users/approve/:userId', userController.approveUser);
 
@@ -25,5 +24,11 @@ router.get('/products/:id', productController.getProductById);
 if (categoryController?.getCategories) {
   router.get('/categories', categoryController.getCategories);
 }
+
+// Заказы
+router.post('/orders', orderController.createOrder);
+router.get('/orders/user', orderController.getUserOrders);
+router.get('/orders/seller', orderController.getSellerOrders);
+router.put('/orders', orderController.updateOrderStatus);
 
 module.exports = router;
