@@ -2,44 +2,38 @@ const mongoose = require('mongoose');
 
 // Схема для пользователей
 let UserSchema = mongoose.Schema({
-  name: { type: String, required: true },
+  firebaseUid: { type: String, required: true, unique: true, index: true }, // ID из Firebase, уникальный и индексированный для быстрого поиска
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  avatar: { type: String }, // Путь или ID изображения
-  favorites: [
-    {
-      product: { type: String }, // ID товара
-    }
-  ],
-  items: [
-    {
-      product: { type: String }, // ID товара, созданного пользователем
-    }
-  ],
-  orders: [
-    {
-      order: { type: String }, // ID заказа в статусе "в получении"
-    }
-  ],
-  registrationDate: { type: String, default: new Date().toISOString() }
-});
+  name: { type: String, default: '' }, // Имя, которое пользователь может потом указать
+  avatar: { type: String, default: '' }, // Ссылка на фото профиля
+  favorites: [{
+    product: { type: String }
+  }],
+  items: [{
+    product: { type: String }
+  }],
+  orders: [{
+    order: { type: String }
+  }]
+}, { timestamps: true }); // Добавили timestamps
 
 // Схема для товаров
-let ProductSchema = mongoose.Schema({
-  title: { type: String, required: true },
+// Схема для товаров (ИСПРАВЛЕННАЯ ВЕРСИЯ)
+const ProductSchema = new mongoose.Schema({
+  title: { type: String, required: true }, // Меняем 'name' на 'title'
   price: { type: Number, required: true },
-  containerCoordinates: {
+  containerCoordinates: { // Меняем 'location' на 'containerCoordinates'
     x: { type: Number, required: true },
     y: { type: Number, required: true }
   },
-  image: { type: String, required: false }, // Путь к файлу или ID в Cloudinary
-  category: { type: String }, // ID категории
-  author: { type: String, required: true }, // ID пользователя
-  quantity: { type: Number, required: true, min: 0 },
+  image: { type: String, required: true }, // Теперь это просто URL, как и в твоем контроллере
+  category: { type: String, required: true }, // ID категории
+  author: { type: String, required: true },   // ID пользователя
+  quantity: { type: Number, required: true },
   additionalInfo: { type: String },
-  sizes: [{ type: String }], // Размеры одежды: ['S', 'M', 'L', 'XL', 'XXL']
-  createDate: { type: String, default: new Date().toISOString() }
-});
+  sizes: [String], // Массив строк для размеров
+  createDate: { type: Date, default: Date.now }
+}, { timestamps: true }); // timestamps все еще полезны
 
 // Схема для категорий
 let CategorySchema = mongoose.Schema({
@@ -56,9 +50,9 @@ let OrderSchema = mongoose.Schema({
 
 // Модели
 let User = mongoose.model('User', UserSchema);
-let Product = mongoose.model('Product', ProductSchema);
+const ProductModel = mongoose.model('Product', ProductSchema);
 let Category = mongoose.model('Category', CategorySchema);
 let Order = mongoose.model('Order', OrderSchema);
 
 // Экспортируем модели
-module.exports = { User, Product, Category, Order };
+module.exports = { User, ProductModel, Category, Order };

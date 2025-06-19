@@ -1,4 +1,4 @@
-const { User, Product, Category, Order } = require('../models/product.model.js');
+const { User, ProductModel: Product, Category, Order } = require('../models/product.model.js');
 const { uploadImage, deleteImage } = require('../services/cloudinary.js');
 
 // Пользователи
