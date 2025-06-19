@@ -1,27 +1,29 @@
+// server/routes/product.route.js (ПОЛНАЯ ВЕРСИЯ)
 const express = require('express');
 const router = express.Router();
-const { userController, productController, categoryController, orderController } = require('../controllers/product.controller');
+const { userController, productController, categoryController } = require('../controllers/product.controller');
 const { uploadMiddleware } = require('../services/cloudinary');
 
-// Пользователи
-router.post('/users', userController.createUser); // Создание пользователя
-router.post('/users/profile', userController.getProfile); // Получение профиля
-router.post('/users/avatar', uploadMiddleware, userController.updateAvatar); // Обновление аватарки
-router.post('/users/favorites/:productId', userController.addFavorite); // Добавить в избранное
-router.delete('/users/favorites/:productId', userController.removeFavorite); // Удалить из избранного
+// Пользователи, Профиль, Админка
+router.post('/users/registerOrLogin', userController.registerOrLogin);
+router.put('/users/profile', uploadMiddleware, userController.updateProfile); 
+router.get('/users/products/:authorId', userController.getUserProducts); 
+router.get('/users', userController.getAllUsers);
+router.put('/users/approve/:userId', userController.approveUser);
+
+// Избранное
+router.get('/users/favorites', userController.getFavorites);
+router.post('/users/favorites', userController.addFavorite);
+router.delete('/users/favorites', userController.removeFavorite);
 
 // Товары
-router.post('/products', uploadMiddleware, productController.createProduct); // Создание товара
-router.get('/products', productController.getProducts); // Получение списка товаров
-router.get('/products/:id', productController.getProduct); // Получение одного товара
-router.delete('/products/:id', productController.deleteProduct); // НОВЫЙ МАРШРУТ: Удаление товара
+router.post('/products', uploadMiddleware, productController.createProduct);
+router.get('/products', productController.getProducts);
+router.get('/products/:id', productController.getProductById);
 
 // Категории
-router.get('/categories', categoryController.getCategories); // Получение списка категорий
-router.post('/categories', categoryController.createCategory); // Создание категории
-
-// Заказы
-router.post('/orders', orderController.createOrder); // Создание заказа
-router.post('/orders/list', orderController.getOrders); // Получение списка заказов
+if (categoryController?.getCategories) {
+  router.get('/categories', categoryController.getCategories);
+}
 
 module.exports = router;

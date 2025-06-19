@@ -1,58 +1,49 @@
+// server/models/product.model.js (ПОЛНАЯ ВЕРСИЯ)
 const mongoose = require('mongoose');
 
-// Схема для пользователей
-let UserSchema = mongoose.Schema({
-  firebaseUid: { type: String, required: true, unique: true, index: true }, // ID из Firebase, уникальный и индексированный для быстрого поиска
+const UserSchema = new mongoose.Schema({
+  firebaseUid: { type: String, required: true, unique: true, index: true },
   email: { type: String, required: true, unique: true },
-  name: { type: String, default: '' }, // Имя, которое пользователь может потом указать
-  avatar: { type: String, default: '' }, // Ссылка на фото профиля
-  favorites: [{
-    product: { type: String }
-  }],
-  items: [{
-    product: { type: String }
-  }],
-  orders: [{
-    order: { type: String }
-  }]
-}, { timestamps: true }); // Добавили timestamps
+  name: { type: String, default: '' },
+  avatar: { type: String, default: '' },
+  role: { type: String, enum: ['user', 'seller'], default: 'user' },
+  status: { type: String, enum: ['pending', 'approved', 'blocked'], default: 'pending' },
+  favorites: [{ product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' } }],
+  items: [{ product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' } }],
+  orders: [{ order: { type: mongoose.Schema.Types.ObjectId, ref: 'Order' } }]
+}, { timestamps: true });
 
-// Схема для товаров
-// Схема для товаров (ИСПРАВЛЕННАЯ ВЕРСИЯ)
 const ProductSchema = new mongoose.Schema({
-  title: { type: String, required: true }, // Меняем 'name' на 'title'
+  title: { type: String, required: true },
   price: { type: Number, required: true },
-  containerCoordinates: { // Меняем 'location' на 'containerCoordinates'
-    x: { type: Number, required: true },
-    y: { type: Number, required: true }
-  },
-  image: { type: String, required: true }, // Теперь это просто URL, как и в твоем контроллере
-  category: { type: String, required: true }, // ID категории
-  author: { type: String, required: true },   // ID пользователя
-  quantity: { type: Number, required: true },
+  description: { type: String, default: '' },
+  oldPrice: { type: Number },
+  brand: { type: String },
+  rating: { type: Number, default: 0 },
+  containerCoordinates: { x: { type: Number }, y: { type: Number } },
+  image: { type: String, required: true },
+  category: { type: String, required: true },
+  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  quantity: { type: Number, default: 1 },
   additionalInfo: { type: String },
-  sizes: [String], // Массив строк для размеров
-  createDate: { type: Date, default: Date.now }
-}, { timestamps: true }); // timestamps все еще полезны
+  sizes: [String],
+}, { timestamps: true });
 
-// Схема для категорий
-let CategorySchema = mongoose.Schema({
-  name: { type: String, required: true, unique: true }
+const CategorySchema = new mongoose.Schema({
+  name: { type: String, required: true, unique: true },
+  icon: { type: String }
 });
 
-// Схема для заказов
-let OrderSchema = mongoose.Schema({
-  user: { type: String, required: true }, // ID пользователя
-  product: { type: String, required: true }, // ID товара
+const OrderSchema = new mongoose.Schema({
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
   status: { type: String, enum: ['pending', 'delivered'], default: 'pending' },
   createDate: { type: String, default: new Date().toISOString() }
 });
 
-// Модели
-let User = mongoose.model('User', UserSchema);
-const ProductModel = mongoose.model('Product', ProductSchema);
-let Category = mongoose.model('Category', CategorySchema);
-let Order = mongoose.model('Order', OrderSchema);
+const User = mongoose.model('User', UserSchema);
+const Product = mongoose.model('Product', ProductSchema);
+const Category = mongoose.model('Category', CategorySchema);
+const Order = mongoose.model('Order', OrderSchema);
 
-// Экспортируем модели
-module.exports = { User, ProductModel, Category, Order };
+module.exports = { User, Product, Category, Order };

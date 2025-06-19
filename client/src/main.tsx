@@ -1,14 +1,18 @@
-// client/src/main.tsx (НОВАЯ ВЕРСИЯ)
+// client/src/main.tsx (ФИНАЛЬНАЯ ВЕРСИЯ С REDUX)
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './App.css';
-import { BrowserRouter } from 'react-router-dom'; // <-- ДОБАВИЛИ ЭТОТ ИМПОРТ
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from './store/store.ts';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter> {/* <-- ОБЕРНУЛИ App В ЭТОТ КОМПОНЕНТ */}
-      <App />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
 );

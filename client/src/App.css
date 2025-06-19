@@ -4,3 +4,20 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+/* Добавь в конец файла client/src/App.css */
+.cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}

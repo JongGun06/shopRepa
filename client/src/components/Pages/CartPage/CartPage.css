@@ -1,0 +1,132 @@
+/* client/src/components/Pages/CartPage/CartPage.css (НОВЫЙ ФАЙЛ) */
+.cart-container {
+  padding: 2rem 4rem;
+}
+.cart-container h1 {
+  font-weight: 400;
+  font-size: 30px;
+  text-align: center;
+}
+.cart-titles {
+  margin: 2rem 0 1rem;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 3fr 1fr 1fr 1fr;
+  column-gap: 0.5rem;
+}
+.cart-titles h3 {
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+.cart-item {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 3fr 1fr 1fr 1fr;
+  column-gap: 0.5rem;
+  border-top: 1px solid #ddd;
+  padding: 1rem 0;
+}
+.cart-product {
+  display: flex;
+}
+.cart-product img {
+  width: 100px;
+  height: 100px;
+  margin-right: 1rem;
+}
+.cart-product h4 {
+  font-weight: 400;
+}
+.cart-product button {
+  border: none;
+  outline: none;
+  background: 0 0;
+  color: #888;
+  cursor: pointer;
+}
+.cart-product button:hover {
+  color: #000;
+}
+.cart-quantity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 130px;
+  max-width: 100%;
+}
+.cart-quantity button {
+  border: 1px solid #ddd;
+  outline: none;
+  background: 0 0;
+  padding: 0.7rem 1.5rem;
+  cursor: pointer;
+}
+.cart-quantity .count {
+  padding: 0 1.5rem;
+}
+.cart-total-price{
+    justify-self: end;
+  font-weight: 700;
+}
+.cart-price {
+  font-weight: 700;
+}
+.cart-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-top: 1px solid #ddd;
+  padding-top: 2rem;
+}
+.clear-cart {
+  width: 130px;
+  max-width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  font-weight: 400;
+  letter-spacing: 1.15px;
+  border: 1px solid #888;
+  color: #888;
+  background: 0 0;
+  outline: 0;
+  cursor: pointer;
+}
+.cart-checkout {
+  width: 270px;
+  max-width: 100%;
+}
+.subtotal {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+}
+.amount {
+  font-weight: 700;
+}
+.cart-checkout p {
+  font-size: 14px;
+  font-weight: 200;
+  margin: 0.5rem 0;
+}
+.cart-checkout button {
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  font-weight: 400;
+  letter-spacing: 1.15px;
+  background: #4b70e2;
+  color: #f9f9f9;
+  border: none;
+  outline: 0;
+  cursor: pointer;
+}
+.cart-empty,
+.continue-shopping {
+  font-size: 20px;
+  margin-top: 2rem;
+  color: gray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

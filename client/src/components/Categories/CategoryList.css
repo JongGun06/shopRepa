@@ -1,0 +1,39 @@
+/* client/src/components/Categories/CategoryList.css (НОВЫЙ ФАЙЛ) */
+.categories-container {
+    margin-bottom: 30px;
+}
+
+.categories-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 90px;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+  background-color: #fff;
+  font-size: 0.9rem;
+}
+
+.category-item:hover {
+  border-color: #0d6efd;
+  transform: translateY(-4px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+}
+
+.category-icon svg {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 8px;
+  color: #495057;
+}
