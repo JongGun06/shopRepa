@@ -1,17 +1,30 @@
-// client/src/store/types.ts (НОВЫЙ ФАЙЛ)
-
-// Тип для параметров фильтрации
-export interface GetProductsParams {
-  search?: string;
-  category?: string;
-  price_gte?: number;
-  price_lte?: number;
-  sortBy?: string;
+// client/src/types.ts
+export interface UserProfile {
+  _id: string;
+  firebaseUid: string;
+  email: string;
+  name: string;
+  avatar?: string;
+  role: 'user' | 'seller';
+  status: 'pending' | 'approved' | 'blocked';
 }
 
-// Тип для категории
-export interface Category {
+export interface Product {
   _id: string;
-  name: string;
-  icon: string;
+  title: string;
+  price: number;
+  description: string;
+  oldPrice?: number;
+  brand?: string;
+  rating?: number;
+  image: string;
+  category: string;
+  author: UserProfile; // <-- ВАЖНО: автор - это объект UserProfile
+  quantity: number;
+}
+
+export interface Category {
+    _id: string;
+    name: string;
+    icon: string;
 }
