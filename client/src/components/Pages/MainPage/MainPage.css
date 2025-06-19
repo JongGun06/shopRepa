@@ -209,3 +209,257 @@
   object-fit: cover;
   margin-bottom: 20px;
 }
+
+
+
+/* client/src/components/Pages/MainPage/MainPage.css */
+
+.main-container {
+  padding: 20px;
+  max-width: 1300px;
+  margin: 0 auto;
+  font-family: var(--font-family-primary);
+  color: var(--dark-text-primary); /* Основной текст в контейнере */
+}
+
+.main-container h1, .main-container h2 {
+  margin-bottom: 25px;
+  color: var(--dark-text-primary);
+}
+
+/* Панель фильтров */
+.filters-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 30px;
+  padding: 15px;
+  background-color: var(--dark-bg-card); /* Фон фильтров */
+  border-radius: 8px;
+  border: 1px solid var(--dark-border-color); /* Граница фильтров */
+  box-shadow: 0 2px 8px var(--dark-shadow-color);
+}
+
+.filter-input, .filter-select {
+  padding: 8px 12px;
+  border: 1px solid var(--dark-input-border); /* Граница инпутов/селектов */
+  border-radius: 4px;
+  font-size: 1rem;
+  height: 38px;
+  background-color: var(--dark-input-bg); /* Фон инпутов/селектов */
+  color: var(--dark-text-primary); /* Цвет текста */
+}
+
+.filter-input::placeholder {
+  color: var(--dark-text-secondary); /* Цвет плейсхолдера */
+}
+
+.filter-input:focus, .filter-select:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(97, 175, 239, 0.5);
+}
+
+.filter-input[type="text"] {
+  flex-grow: 1;
+  min-width: 150px;
+}
+
+.filter-input.price {
+  width: 120px;
+}
+
+.filter-button {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.filter-button.apply {
+  background-color: var(--accent-green); /* Акцентный зеленый */
+  color: white;
+}
+
+.filter-button.apply:hover {
+  background-color: var(--accent-green-hover);
+}
+
+.filter-button.reset {
+  background-color: var(--neutral-gray); /* Нейтральный серый */
+  color: white;
+}
+
+.filter-button.reset:hover {
+  background-color: var(--neutral-gray-hover);
+}
+
+/* Разделитель */
+.divider {
+  margin: 25px 0;
+  border: 0;
+  border-top: 1px solid var(--dark-border-color); /* Темный разделитель */
+}
+
+.content-wrapper {
+  margin-top: 20px;
+}
+
+/* Сетка товаров */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+/* Карточка товара */
+.card-product {
+  background-color: var(--dark-bg-card); /* Фон карточки */
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--dark-border-color); /* Граница карточки */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-product:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px var(--dark-shadow-color); /* Более выраженная тень */
+}
+
+.card-product-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-product-image-wrapper {
+  width: 100%;
+  padding-top: 100%; /* Квадратная картинка */
+  position: relative;
+  background-color: var(--dark-input-bg); /* Фон для заглушки изображений */
+}
+
+.card-product-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Сердечко */
+.favorite-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(44, 44, 44, 0.7); /* Темный полупрозрачный фон */
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+  padding: 0;
+}
+.favorite-button:hover {
+  transform: scale(1.1);
+  background: rgba(68, 68, 68, 0.8); /* Чуть темнее при наведении */
+}
+.favorite-icon {
+  width: 22px;
+  height: 22px;
+  /* Цвет fill и stroke будет задаваться из компонента CardProducts.tsx */
+}
+
+/* Тело карточки */
+.card-product-body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-product-brand {
+  font-size: 0.8rem;
+  color: var(--dark-text-secondary); /* Менее яркий для бренда */
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.card-product-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin: 0 0 8px 0;
+  height: 40px; /* Фиксированная высота для 2 строк текста */
+  line-height: 20px;
+  overflow: hidden;
+  color: var(--dark-text-primary);
+}
+
+.card-product-price-wrapper {
+  display: flex;
+  align-items: baseline;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.card-product-price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-right: 8px;
+  color: var(--accent-blue); /* Акцентный цвет для цены */
+}
+
+.card-product-old-price {
+  font-size: 0.9rem;
+  color: var(--dark-text-secondary); /* Менее яркий для старой цены */
+  text-decoration: line-through;
+}
+
+/* Стили для страницы профиля */
+.profile-layout {
+  display: grid;
+  grid-template-columns: 1fr; /* По умолчанию в один столбец */
+  gap: 30px;
+}
+
+@media (min-width: 768px) {
+  .profile-layout {
+    grid-template-columns: 1fr 1fr; /* На больших экранах в два столбца */
+  }
+}
+
+.profile-form .form-group {
+  margin-bottom: 15px;
+}
+.profile-form label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--dark-text-secondary);
+}
+.profile-form input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--dark-input-border);
+  border-radius: 4px;
+  background-color: var(--dark-input-bg);
+  color: var(--dark-text-primary);
+}
+.profile-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+  border: 3px solid var(--dark-border-color); /* Темная граница аватара */
+}

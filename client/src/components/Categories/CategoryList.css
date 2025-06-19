@@ -37,3 +37,47 @@
   margin-bottom: 8px;
   color: #495057;
 }
+
+
+/* client/src/components/Categories/CategoryList.css */
+.categories-container {
+  margin-bottom: 30px;
+  color: var(--dark-text-primary); /* Цвет текста заголовка */
+}
+
+.categories-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center; /* Выравнивание по центру */
+}
+
+.category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 90px;
+  border: 1px solid var(--dark-border-color); /* Темная граница */
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+  background-color: var(--dark-bg-card); /* Фон карточки */
+  color: var(--dark-text-secondary); /* Цвет текста категории */
+  font-size: 0.9rem;
+}
+
+.category-item:hover {
+  border-color: var(--accent-blue); /* Акцентная граница при наведении */
+  transform: translateY(-4px);
+  box-shadow: 0 4px 10px var(--dark-shadow-color); /* Тень для темной темы */
+}
+
+.category-icon svg {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 8px;
+  color: var(--dark-text-primary); /* Цвет иконки */
+}

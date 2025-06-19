@@ -60,3 +60,125 @@
   color: green;
   margin: 10px 0;
 }
+
+/* AuthPage.css */
+.auth-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid var(--dark-border-color); /* Темная граница */
+  border-radius: 8px;
+  text-align: center;
+  background-color: var(--dark-bg-card); /* Фон карточки */
+  color: var(--dark-text-primary); /* Цвет текста */
+  box-shadow: 0 4px 15px var(--dark-shadow-color); /* Тень для темной темы */
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--dark-text-secondary); /* Менее яркий текст для лейблов */
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--dark-input-border); /* Граница инпута */
+  border-radius: 4px;
+  background-color: var(--dark-input-bg); /* Фон инпута */
+  color: var(--dark-text-primary); /* Цвет текста в инпуте */
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--accent-blue); /* Акцент при фокусе */
+  box-shadow: 0 0 0 3px rgba(97, 175, 239, 0.5); /* Голубоватая тень */
+}
+
+.auth-button, .reset-password, .toggle-auth {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.auth-button {
+  background-color: var(--accent-blue); /* Основной синий */
+  color: white;
+}
+
+.auth-button:hover {
+  background-color: var(--accent-blue-hover); /* Темнее синий при наведении */
+}
+
+.auth-button:disabled {
+  background-color: var(--dark-input-border);
+  color: var(--dark-text-secondary);
+  cursor: not-allowed;
+}
+
+.reset-password, .toggle-auth {
+  background: none;
+  color: var(--accent-blue); /* Ссылки синего цвета */
+  text-decoration: underline;
+  padding: 8px 0; /* Меньший паддинг для ссылок */
+}
+
+.reset-password:hover, .toggle-auth:hover {
+  color: var(--accent-blue-hover);
+}
+
+.error {
+  color: var(--accent-red); /* Красный для ошибок */
+  margin: 10px 0;
+}
+
+.message {
+  color: var(--accent-green); /* Зеленый для сообщений */
+  margin: 10px 0;
+}
+
+.auth-container .auth-btn {
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: #4CAF50; /* зелёный */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+
+.auth-container .auth-btn:hover {
+  background-color: #45a049;
+}
+
+.auth-container .auth-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.auth-container .auth-btn.reset-password {
+  background-color: #2196F3;
+}
+
+.auth-container .auth-btn.reset-password:hover {
+  background-color: #1976d2;
+}
+
+.auth-container .auth-btn.toggle-auth {
+  background-color: transparent;
+  color: #4CAF50;
+}
+
+
+

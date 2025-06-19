@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { type RootState } from '../../../store/store';
 import { useGetSellerOrdersQuery, useUpdateOrderStatusMutation } from '../../../store/apiSlice';
 import '../MainPage/MainPage.css';
+import './style.css'
 
 const SellerOrdersPage = () => {
   const { profile } = useSelector((state: RootState) => state.auth);

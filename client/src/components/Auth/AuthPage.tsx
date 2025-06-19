@@ -3,11 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut,
   onAuthStateChanged,
   sendPasswordResetEmail,
-  signInWithPopup,
-  GoogleAuthProvider,
 } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { auth } from '../../firebase/config';
@@ -85,19 +82,6 @@ const AuthPage = () => {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    try {
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      const response = await syncUser({ firebaseUid: user.uid, email: user.email }).unwrap();
-      dispatch(setUser(response));
-      navigate('/');
-    } catch (err: any) {
-      setLocalError('Ошибка входа через Google: ' + (err.message || 'Неизвестная ошибка'));
-    }
-  };
-
   const handlePasswordReset = async () => {
     if (!email) {
       setLocalError('Введите email для сброса пароля.');
@@ -140,20 +124,13 @@ const AuthPage = () => {
         {localError && <p className="error">{localError}</p>}
         {isError && <p className="error">Ошибка сервера: {JSON.stringify(apiError)}</p>}
         {message && <p className="message">{message}</p>}
-        <button type="submit" disabled={isLoading}>
+        <button style={{padding:"1rem 4rem",fontSize:"15px",fontWeight:"900"}} className="auth-btn" type="submit" disabled={isLoading}>
           {isLoginView ? 'Войти' : 'Зарегистрироваться'}
         </button>
       </form>
-      <button
-        className="auth-button"
-        onClick={handleGoogleSignIn}
-        disabled={isLoading}
-      >
-        Войти с Google
-      </button>
       {isLoginView && (
         <button
-          className="reset-password"
+  className="auth-btn reset-password"
           onClick={handlePasswordReset}
           disabled={isLoading}
         >
@@ -161,7 +138,7 @@ const AuthPage = () => {
         </button>
       )}
       <button
-        className="toggle-auth"
+        className="auth-btn toggle-auth"
         onClick={() => setIsLoginView(!isLoginView)}
       >
         {isLoginView ? 'Нет аккаунта? Зарегистрироваться' : 'Уже есть аккаунт? Войти'}

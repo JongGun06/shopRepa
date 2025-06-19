@@ -46,7 +46,7 @@ const ProfilePage = () => {
       const updatedProfile = await updateProfile(formData).unwrap();
       dispatch(setCredentials(updatedProfile));
       setMessage('Профиль успешно обновлен!');
-    } catch (err) { setMessage('Ошибка обновления профиля.'); }
+    } catch (err) { setMessage(''); }
   };
 
   if (!profile) return <div className="main-container"><h2>Пожалуйста, войдите.</h2></div>;

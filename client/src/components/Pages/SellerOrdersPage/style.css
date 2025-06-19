@@ -1,0 +1,8 @@
+/* В ProductDetailPage.css или в общей utility-классе */
+/* Для кнопок подтверждения заказов */
+.add-to-cart-btn[style*="background-color: #28a745"] {
+  background-color: var(--accent-green) !important;
+}
+.add-to-cart-btn[style*="background-color: #28a745"]:hover {
+  background-color: var(--accent-green-hover) !important;
+}

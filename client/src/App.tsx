@@ -24,6 +24,9 @@ function App() {
   const navigate = useNavigate();
   const [syncUser] = useSyncUserMutation();
 
+
+  
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {

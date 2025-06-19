@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { type RootState } from '../../../store/store';
 import { useGetUserOrdersQuery, useUpdateOrderStatusMutation } from '../../../store/apiSlice';
 import '../MainPage/MainPage.css';
+import '../SellerOrdersPage/style.css'
 
 const UserOrdersPage = () => {
   const { profile } = useSelector((state: RootState) => state.auth);
@@ -42,11 +43,17 @@ const UserOrdersPage = () => {
                 <p>Дата: {new Date(order.createDate).toLocaleDateString()}</p>
                 <h6>Товары:</h6>
                 <ul>
-                  {order.products.map(p => (
-                    <li key={p.product._id}>
-                      {p.product.title} x {p.quantity} ({p.product.price * p.quantity} сом)
-                    </li>
-                  ))}
+                  {order.products.map(p => {
+                    if (!p.product) {
+                      return <li key={Math.random()}>[Товар недоступен] x {p.quantity}</li>;
+                    }
+
+                    return (
+                      <li key={p.product._id}>
+                        {p.product.title} x {p.quantity} ({p.product.price * p.quantity} сом)
+                      </li>
+                    );
+                  })}
                 </ul>
                 {order.status === 'pending' && (
                   <button

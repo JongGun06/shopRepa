@@ -10,6 +10,7 @@ import {
 } from '../../../store/apiSlice';
 import { StarIcon } from './StarIcon';
 
+
 // SVG иконка для сердечка
 const HeartIcon = ({ isFavorite }: { isFavorite: boolean }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill={isFavorite ? "#dc3545" : "none"} stroke={isFavorite ? "#dc3545" : "gray"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="favorite-icon">

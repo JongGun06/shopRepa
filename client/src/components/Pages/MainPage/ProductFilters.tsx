@@ -55,17 +55,7 @@ const ProductFilters = ({ categories, onApplyFilters, currentFilters }: ProductF
         className="filter-input"
       />
 
-      <select
-        value={selectedCategory}
-        onChange={(e) => setSelectedCategory(e.target.value)}
-        className="filter-select"
-      >
-        <option value="">Все категории</option>
-        {/* Наполняем список категориями, полученными из пропсов */}
-        {categories.map(cat => (
-          <option key={cat._id} value={cat.name}>{cat.name}</option>
-        ))}
-      </select>
+      
 
       <input
         type="number"
@@ -81,6 +71,17 @@ const ProductFilters = ({ categories, onApplyFilters, currentFilters }: ProductF
         onChange={(e) => setMaxPrice(e.target.value)}
         className="filter-input price"
       />
+      <select
+        value={selectedCategory}
+        onChange={(e) => setSelectedCategory(e.target.value)}
+        className="filter-select"
+      >
+        <option value="">Все категории</option>
+        {/* Наполняем список категориями, полученными из пропсов */}
+        {categories.map(cat => (
+          <option key={cat._id} value={cat.name}>{cat.name}</option>
+        ))}
+      </select>
 
       <select
         value={sortOption}

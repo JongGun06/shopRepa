@@ -1,0 +1,90 @@
+/* client/src/components/Pages/SellerDashboard/AddProductPage.css */
+
+.add-product-container {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 25px;
+  background-color: var(--dark-bg-card);
+  border-radius: 8px;
+  border: 1px solid var(--dark-border-color);
+  box-shadow: 0 4px 20px var(--dark-shadow-color);
+  color: var(--dark-text-primary);
+}
+
+.add-product-container h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: var(--dark-text-primary);
+}
+
+.add-product-container .form-group {
+  margin-bottom: 20px;
+}
+
+.add-product-container label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--dark-text-secondary);
+}
+
+.add-product-container input[type="text"],
+.add-product-container input[type="number"],
+.add-product-container textarea,
+.add-product-container select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--dark-input-border);
+  border-radius: 4px;
+  background-color: var(--dark-input-bg);
+  color: var(--dark-text-primary);
+  box-sizing: border-box; /* Важно, чтобы padding не увеличивал ширину */
+}
+
+.add-product-container input:focus,
+.add-product-container textarea:focus,
+.add-product-container select:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(97, 175, 239, 0.5);
+}
+
+.add-product-container textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.add-product-container input[type="file"] {
+  padding: 0; /* Файловый инпут не нуждается в таком паддинге */
+  border: none;
+  background: none;
+}
+
+.add-product-container button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--accent-blue);
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.add-product-container button[type="submit"]:hover {
+  background-color: var(--accent-blue-hover);
+}
+
+.add-product-container button[type="submit"]:disabled {
+  background-color: var(--dark-input-border);
+  color: var(--dark-text-secondary);
+  cursor: not-allowed;
+}
+
+.add-product-container .error {
+  color: var(--accent-red);
+  margin-top: 10px;
+  text-align: center;
+}
