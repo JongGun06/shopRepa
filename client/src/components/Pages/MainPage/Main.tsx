@@ -1,35 +1,52 @@
-// client/src/components/Pages/MainPage/Main.tsx (ОБНОВЛЕННАЯ ВЕРСИЯ)
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useGetProductsQuery, useGetCategoriesQuery, type GetProductsParams } from '../../../store/apiSlice';
 import CardProducts from './CardProducts';
-import CategoryList from '../../Categories/CategoryList'; // <-- Импортируем компонент категорий
-import ProductFilters from './ProductFilters'; // <-- Импортируем компонент фильтров
+import CategoryList from '../../Categories/CategoryList';
+import ProductFilters from './ProductFilters';
+import FilterModal from './FilterModal'; // <-- Импортируем модальное окно
 import './MainPage.css';
 
 const Main = () => {
-  // Единое состояние для всех фильтров
-  const [filters, setFilters] = useState<Partial<GetProductsParams>>({});
+  // Это состояние отвечает за уже ПРИМЕНЕННЫЕ фильтры
+  const [appliedFilters, setAppliedFilters] = useState<Partial<GetProductsParams>>({});
+  
+  // Это состояние для временного хранения значений в инпутах и модалке
+  const [localFilters, setLocalFilters] = useState<Partial<GetProductsParams>>({});
 
-  // Запрос на получение товаров с учетом текущих фильтров
-  const { data: products = [], isLoading: isProductsLoading } = useGetProductsQuery(filters);
+  // Состояние для открытия/закрытия модалки
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Запрос на получение списка всех категорий
+  // Запросы к API
+  const { data: products = [], isLoading: isProductsLoading } = useGetProductsQuery(appliedFilters);
   const { data: categories = [], isLoading: isCategoriesLoading } = useGetCategoriesQuery();
 
-  // Функция для применения фильтров из компонента ProductFilters
-  const handleApplyFilters = (newFilters: GetProductsParams) => {
-    setFilters(newFilters);
+  // Синхронизируем локальные фильтры, если применились новые
+  useEffect(() => {
+    setLocalFilters(appliedFilters);
+  }, [appliedFilters]);
+
+
+  const handleFilterChange = (name: keyof GetProductsParams, value: string | number) => {
+    setLocalFilters(prev => ({ ...prev, [name]: value === '' ? undefined : value }));
   };
 
-  // Функция для обработки клика по категории из CategoryList
+  const handleApplyFilters = () => {
+    setAppliedFilters(localFilters);
+    setIsModalOpen(false); // Закрываем модалку после применения
+  };
+
+  const handleResetFilters = () => {
+    setLocalFilters({});
+    setAppliedFilters({});
+    setIsModalOpen(false);
+  };
+
   const handleCategoryClick = (categoryName: string) => {
-    // При клике на категорию, мы обновляем фильтры
-    const newFilters = { ...filters, category: categoryName, search: undefined }; // Сбрасываем поиск
-    setFilters(newFilters);
+    const newFilters = { category: categoryName, search: undefined };
+    setLocalFilters(newFilters);
+    setAppliedFilters(newFilters);
   };
 
-  // Показываем состояние загрузки, пока грузятся и товары и категории
   const isLoading = isProductsLoading || isCategoriesLoading;
 
   return (
@@ -37,22 +54,17 @@ const Main = () => {
       <div className="content-wrapper">
         <h1 style={{ textAlign: 'center', marginBottom: '30px' }}>Каталог Товаров</h1>
 
-        {/* ================================================================= */}
-        {/* ВОТ ЗДЕСЬ МЫ ВОЗВРАЩАЕМ ВАШИ КАТЕГОРИИ */}
-        <CategoryList
-          onCategoryClick={handleCategoryClick}
-        />
+        <CategoryList onCategoryClick={handleCategoryClick} />
         <hr className="divider" />
-        {/* ================================================================= */}
-
-        {/* Панель с фильтрами (поиск, цена и т.д.) */}
+        
         <ProductFilters
-          categories={categories}
-          onApplyFilters={handleApplyFilters}
-          currentFilters={filters} // Передаем текущие фильтры
+          searchTerm={localFilters.search || ''}
+          onSearchChange={(value) => handleFilterChange('search', value)}
+          onApply={handleApplyFilters}
+          onReset={handleResetFilters}
+          onOpenModal={() => setIsModalOpen(true)}
         />
 
-        {/* Отображение товаров */}
         <div className="products-grid">
           {isLoading ? (
             <p>Загрузка товаров...</p>
@@ -65,6 +77,16 @@ const Main = () => {
           )}
         </div>
       </div>
+
+      <FilterModal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        categories={categories}
+        filters={localFilters}
+        onFilterChange={handleFilterChange}
+        onApply={handleApplyFilters}
+        onReset={handleResetFilters}
+      />
     </div>
   );
 };

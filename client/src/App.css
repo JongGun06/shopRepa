@@ -122,3 +122,211 @@ header button:hover {
   justify-content: center;
   font-weight: bold;
 }
+/* === ОБЩИЕ СТИЛИ ДЛЯ ПРИЛОЖЕНИЯ === */
+.app-container {
+  padding-bottom: 80px;
+}
+
+/* === ВЕРХНИЙ ХЕДЕР === */
+.app-header {
+  padding: 0.8rem 1.5rem;
+  background-color: var(--dark-bg-card);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--dark-border-color);
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: var(--dark-text-primary);
+  margin-right: 2rem;
+}
+
+.desktop-nav {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  flex-grow: 1; /* Занимает доступное место */
+}
+
+.desktop-nav a {
+  text-decoration: none;
+  color: var(--dark-text-secondary);
+  transition: color 0.2s;
+}
+.desktop-nav a:hover {
+  color: var(--dark-text-primary);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.cart-link {
+  position: relative;
+  color: var(--dark-text-primary);
+}
+
+.profile-badge {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.profile-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+.profile-link img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+/* === НИЖНЯЯ НАВИГАЦИЯ (ТОЛЬКО ДЛЯ МОБИЛЬНЫХ) === */
+.bottom-nav {
+  display: none; 
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 65px;
+  background-color: var(--dark-bg-card);
+  border-top: 1px solid var(--dark-border-color);
+  justify-content: space-around;
+  align-items: center;
+  z-index: 998;
+}
+
+.bottom-nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--dark-text-secondary);
+  text-decoration: none;
+  font-size: 0.7rem;
+  padding: 5px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  flex-grow: 1;
+}
+
+.bottom-nav-link svg {
+  width: 24px;
+  height: 24px;
+}
+
+.bottom-nav-link.active {
+  color: var(--accent-blue);
+}
+
+/* === Боковое выезжающее меню === */
+.side-menu-panel {
+  position: fixed;
+  top: 0;
+  right: -100%; /* Изначально скрыто за экраном */
+  width: 280px;
+  height: 100%;
+  background-color: var(--dark-bg-card);
+  z-index: 1000;
+  box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+  transition: right 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.side-menu-panel.open {
+  right: 0; /* Показываем меню */
+}
+
+.side-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--dark-border-color);
+}
+.side-menu-header h4 {
+  margin: 0;
+}
+.side-menu-header button {
+  font-size: 2.5rem;
+  background: none;
+  border: none;
+  color: var(--dark-text-primary);
+  cursor: pointer;
+}
+
+.side-menu-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  flex-grow: 1; /* Занимает все доступное место */
+}
+
+.side-menu-content a, .profile-link-mobile {
+  color: var(--dark-text-primary);
+  text-decoration: none;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.side-menu-content img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.side-menu-content hr {
+  border-color: var(--dark-border-color);
+  margin: 10px 0;
+}
+
+.logout-mobile {
+  margin-top: auto; /* Прижимаем кнопку выхода к низу */
+  width: 100%;
+  background-color: var(--accent-red) !important;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Оверлей для затемнения фона */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 999;
+}
+
+
+/* === АДАПТИВНОСТЬ === */
+@media (max-width: 992px) {
+  .desktop-nav, .desktop-auth {
+    display: none;
+  }
+  .bottom-nav {
+    display: flex;
+  }
+  .app-header {
+    padding: 0.8rem 1rem;
+  }
+}
